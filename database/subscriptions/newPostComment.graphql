@@ -1,0 +1,14 @@
+subscription {
+  comment(where: { mutation_in: [CREATED] }) {
+    node {
+      user {
+        name
+      }
+      post {
+        id
+        name
+        slug
+      }
+    }
+  }
+}

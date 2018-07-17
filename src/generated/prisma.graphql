@@ -1,0 +1,2912 @@
+# source: https://eu1.prisma.sh/jamie-barton/producthunt/dev
+# timestamp: Sun Jul 15 2018 13:54:37 GMT+0100 (BST)
+
+type AggregateComment {
+  count: Int!
+}
+
+type AggregateNotification {
+  count: Int!
+}
+
+type AggregatePost {
+  count: Int!
+}
+
+type AggregateTopic {
+  count: Int!
+}
+
+type AggregateUser {
+  count: Int!
+}
+
+type AggregateVisit {
+  count: Int!
+}
+
+type AggregateVote {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+type Comment implements Node {
+  id: ID!
+  user(where: UserWhereInput): User!
+  post(where: PostWhereInput): Post!
+  message: String!
+  createdAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type CommentConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CommentEdge]!
+  aggregate: AggregateComment!
+}
+
+input CommentCreateInput {
+  message: String!
+  user: UserCreateOneWithoutCommentsInput!
+  post: PostCreateOneWithoutCommentsInput!
+}
+
+input CommentCreateManyWithoutPostInput {
+  create: [CommentCreateWithoutPostInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateManyWithoutUserInput {
+  create: [CommentCreateWithoutUserInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateWithoutPostInput {
+  message: String!
+  user: UserCreateOneWithoutCommentsInput!
+}
+
+input CommentCreateWithoutUserInput {
+  message: String!
+  post: PostCreateOneWithoutCommentsInput!
+}
+
+"""An edge in a connection."""
+type CommentEdge {
+  """The item at the end of the edge."""
+  node: Comment!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CommentOrderByInput {
+  id_ASC
+  id_DESC
+  message_ASC
+  message_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type CommentPreviousValues {
+  id: ID!
+  message: String!
+  createdAt: DateTime!
+}
+
+type CommentSubscriptionPayload {
+  mutation: MutationType!
+  node: Comment
+  updatedFields: [String!]
+  previousValues: CommentPreviousValues
+}
+
+input CommentSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CommentSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CommentSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CommentSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CommentWhereInput
+}
+
+input CommentUpdateInput {
+  message: String
+  user: UserUpdateOneWithoutCommentsInput
+  post: PostUpdateOneWithoutCommentsInput
+}
+
+input CommentUpdateManyWithoutPostInput {
+  create: [CommentCreateWithoutPostInput!]
+  connect: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  delete: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutPostInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutPostInput!]
+}
+
+input CommentUpdateManyWithoutUserInput {
+  create: [CommentCreateWithoutUserInput!]
+  connect: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  delete: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input CommentUpdateWithoutPostDataInput {
+  message: String
+  user: UserUpdateOneWithoutCommentsInput
+}
+
+input CommentUpdateWithoutUserDataInput {
+  message: String
+  post: PostUpdateOneWithoutCommentsInput
+}
+
+input CommentUpdateWithWhereUniqueWithoutPostInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutPostDataInput!
+}
+
+input CommentUpdateWithWhereUniqueWithoutUserInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutUserDataInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutPostInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutPostDataInput!
+  create: CommentCreateWithoutPostInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutUserInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutUserDataInput!
+  create: CommentCreateWithoutUserInput!
+}
+
+input CommentWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CommentWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CommentWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CommentWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  message: String
+
+  """All values that are not equal to given value."""
+  message_not: String
+
+  """All values that are contained in given list."""
+  message_in: [String!]
+
+  """All values that are not contained in given list."""
+  message_not_in: [String!]
+
+  """All values less than the given value."""
+  message_lt: String
+
+  """All values less than or equal the given value."""
+  message_lte: String
+
+  """All values greater than the given value."""
+  message_gt: String
+
+  """All values greater than or equal the given value."""
+  message_gte: String
+
+  """All values containing the given string."""
+  message_contains: String
+
+  """All values not containing the given string."""
+  message_not_contains: String
+
+  """All values starting with the given string."""
+  message_starts_with: String
+
+  """All values not starting with the given string."""
+  message_not_starts_with: String
+
+  """All values ending with the given string."""
+  message_ends_with: String
+
+  """All values not ending with the given string."""
+  message_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  user: UserWhereInput
+  post: PostWhereInput
+}
+
+input CommentWhereUniqueInput {
+  id: ID
+}
+
+scalar DateTime
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  createPost(data: PostCreateInput!): Post!
+  createVote(data: VoteCreateInput!): Vote!
+  createTopic(data: TopicCreateInput!): Topic!
+  createComment(data: CommentCreateInput!): Comment!
+  createVisit(data: VisitCreateInput!): Visit!
+  createNotification(data: NotificationCreateInput!): Notification!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
+  updateVote(data: VoteUpdateInput!, where: VoteWhereUniqueInput!): Vote
+  updateTopic(data: TopicUpdateInput!, where: TopicWhereUniqueInput!): Topic
+  updateComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
+  updateVisit(data: VisitUpdateInput!, where: VisitWhereUniqueInput!): Visit
+  updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
+  deleteUser(where: UserWhereUniqueInput!): User
+  deletePost(where: PostWhereUniqueInput!): Post
+  deleteVote(where: VoteWhereUniqueInput!): Vote
+  deleteTopic(where: TopicWhereUniqueInput!): Topic
+  deleteComment(where: CommentWhereUniqueInput!): Comment
+  deleteVisit(where: VisitWhereUniqueInput!): Visit
+  deleteNotification(where: NotificationWhereUniqueInput!): Notification
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
+  upsertVote(where: VoteWhereUniqueInput!, create: VoteCreateInput!, update: VoteUpdateInput!): Vote!
+  upsertTopic(where: TopicWhereUniqueInput!, create: TopicCreateInput!, update: TopicUpdateInput!): Topic!
+  upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
+  upsertVisit(where: VisitWhereUniqueInput!, create: VisitCreateInput!, update: VisitUpdateInput!): Visit!
+  upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyPosts(data: PostUpdateInput!, where: PostWhereInput): BatchPayload!
+  updateManyVotes(data: VoteUpdateInput!, where: VoteWhereInput): BatchPayload!
+  updateManyTopics(data: TopicUpdateInput!, where: TopicWhereInput): BatchPayload!
+  updateManyComments(data: CommentUpdateInput!, where: CommentWhereInput): BatchPayload!
+  updateManyVisits(data: VisitUpdateInput!, where: VisitWhereInput): BatchPayload!
+  updateManyNotifications(data: NotificationUpdateInput!, where: NotificationWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyPosts(where: PostWhereInput): BatchPayload!
+  deleteManyVotes(where: VoteWhereInput): BatchPayload!
+  deleteManyTopics(where: TopicWhereInput): BatchPayload!
+  deleteManyComments(where: CommentWhereInput): BatchPayload!
+  deleteManyVisits(where: VisitWhereInput): BatchPayload!
+  deleteManyNotifications(where: NotificationWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+type Notification implements Node {
+  id: ID!
+  seen: Boolean
+  type: NotificationType
+  from(where: UserWhereInput): User!
+  to(where: UserWhereInput): User!
+  post(where: PostWhereInput): Post!
+  createdAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type NotificationConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [NotificationEdge]!
+  aggregate: AggregateNotification!
+}
+
+input NotificationCreateInput {
+  seen: Boolean
+  type: NotificationType
+  from: UserCreateOneWithoutSentNotificationsInput!
+  to: UserCreateOneWithoutNotificationsInput!
+  post: PostCreateOneWithoutNotificationsInput!
+}
+
+input NotificationCreateManyWithoutFromInput {
+  create: [NotificationCreateWithoutFromInput!]
+  connect: [NotificationWhereUniqueInput!]
+}
+
+input NotificationCreateManyWithoutPostInput {
+  create: [NotificationCreateWithoutPostInput!]
+  connect: [NotificationWhereUniqueInput!]
+}
+
+input NotificationCreateManyWithoutToInput {
+  create: [NotificationCreateWithoutToInput!]
+  connect: [NotificationWhereUniqueInput!]
+}
+
+input NotificationCreateWithoutFromInput {
+  seen: Boolean
+  type: NotificationType
+  to: UserCreateOneWithoutNotificationsInput!
+  post: PostCreateOneWithoutNotificationsInput!
+}
+
+input NotificationCreateWithoutPostInput {
+  seen: Boolean
+  type: NotificationType
+  from: UserCreateOneWithoutSentNotificationsInput!
+  to: UserCreateOneWithoutNotificationsInput!
+}
+
+input NotificationCreateWithoutToInput {
+  seen: Boolean
+  type: NotificationType
+  from: UserCreateOneWithoutSentNotificationsInput!
+  post: PostCreateOneWithoutNotificationsInput!
+}
+
+"""An edge in a connection."""
+type NotificationEdge {
+  """The item at the end of the edge."""
+  node: Notification!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum NotificationOrderByInput {
+  id_ASC
+  id_DESC
+  seen_ASC
+  seen_DESC
+  type_ASC
+  type_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type NotificationPreviousValues {
+  id: ID!
+  seen: Boolean
+  type: NotificationType
+  createdAt: DateTime!
+}
+
+type NotificationSubscriptionPayload {
+  mutation: MutationType!
+  node: Notification
+  updatedFields: [String!]
+  previousValues: NotificationPreviousValues
+}
+
+input NotificationSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [NotificationSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [NotificationSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [NotificationSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: NotificationWhereInput
+}
+
+enum NotificationType {
+  COMMENT
+  VOTE
+}
+
+input NotificationUpdateInput {
+  seen: Boolean
+  type: NotificationType
+  from: UserUpdateOneWithoutSentNotificationsInput
+  to: UserUpdateOneWithoutNotificationsInput
+  post: PostUpdateOneWithoutNotificationsInput
+}
+
+input NotificationUpdateManyWithoutFromInput {
+  create: [NotificationCreateWithoutFromInput!]
+  connect: [NotificationWhereUniqueInput!]
+  disconnect: [NotificationWhereUniqueInput!]
+  delete: [NotificationWhereUniqueInput!]
+  update: [NotificationUpdateWithWhereUniqueWithoutFromInput!]
+  upsert: [NotificationUpsertWithWhereUniqueWithoutFromInput!]
+}
+
+input NotificationUpdateManyWithoutPostInput {
+  create: [NotificationCreateWithoutPostInput!]
+  connect: [NotificationWhereUniqueInput!]
+  disconnect: [NotificationWhereUniqueInput!]
+  delete: [NotificationWhereUniqueInput!]
+  update: [NotificationUpdateWithWhereUniqueWithoutPostInput!]
+  upsert: [NotificationUpsertWithWhereUniqueWithoutPostInput!]
+}
+
+input NotificationUpdateManyWithoutToInput {
+  create: [NotificationCreateWithoutToInput!]
+  connect: [NotificationWhereUniqueInput!]
+  disconnect: [NotificationWhereUniqueInput!]
+  delete: [NotificationWhereUniqueInput!]
+  update: [NotificationUpdateWithWhereUniqueWithoutToInput!]
+  upsert: [NotificationUpsertWithWhereUniqueWithoutToInput!]
+}
+
+input NotificationUpdateWithoutFromDataInput {
+  seen: Boolean
+  type: NotificationType
+  to: UserUpdateOneWithoutNotificationsInput
+  post: PostUpdateOneWithoutNotificationsInput
+}
+
+input NotificationUpdateWithoutPostDataInput {
+  seen: Boolean
+  type: NotificationType
+  from: UserUpdateOneWithoutSentNotificationsInput
+  to: UserUpdateOneWithoutNotificationsInput
+}
+
+input NotificationUpdateWithoutToDataInput {
+  seen: Boolean
+  type: NotificationType
+  from: UserUpdateOneWithoutSentNotificationsInput
+  post: PostUpdateOneWithoutNotificationsInput
+}
+
+input NotificationUpdateWithWhereUniqueWithoutFromInput {
+  where: NotificationWhereUniqueInput!
+  data: NotificationUpdateWithoutFromDataInput!
+}
+
+input NotificationUpdateWithWhereUniqueWithoutPostInput {
+  where: NotificationWhereUniqueInput!
+  data: NotificationUpdateWithoutPostDataInput!
+}
+
+input NotificationUpdateWithWhereUniqueWithoutToInput {
+  where: NotificationWhereUniqueInput!
+  data: NotificationUpdateWithoutToDataInput!
+}
+
+input NotificationUpsertWithWhereUniqueWithoutFromInput {
+  where: NotificationWhereUniqueInput!
+  update: NotificationUpdateWithoutFromDataInput!
+  create: NotificationCreateWithoutFromInput!
+}
+
+input NotificationUpsertWithWhereUniqueWithoutPostInput {
+  where: NotificationWhereUniqueInput!
+  update: NotificationUpdateWithoutPostDataInput!
+  create: NotificationCreateWithoutPostInput!
+}
+
+input NotificationUpsertWithWhereUniqueWithoutToInput {
+  where: NotificationWhereUniqueInput!
+  update: NotificationUpdateWithoutToDataInput!
+  create: NotificationCreateWithoutToInput!
+}
+
+input NotificationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [NotificationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [NotificationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [NotificationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  seen: Boolean
+
+  """All values that are not equal to given value."""
+  seen_not: Boolean
+  type: NotificationType
+
+  """All values that are not equal to given value."""
+  type_not: NotificationType
+
+  """All values that are contained in given list."""
+  type_in: [NotificationType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [NotificationType!]
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  from: UserWhereInput
+  to: UserWhereInput
+  post: PostWhereInput
+}
+
+input NotificationWhereUniqueInput {
+  id: ID
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Post implements Node {
+  id: ID!
+  url: String!
+  name: String!
+  slug: String!
+  tagline: String!
+  status: PostStatus
+  shortUrl: String!
+  hunter(where: UserWhereInput): User!
+  makers(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  topics(where: TopicWhereInput, orderBy: TopicOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Topic!]
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
+  visits(where: VisitWhereInput, orderBy: VisitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Visit!]
+  notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification!]
+  createdAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type PostConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PostEdge]!
+  aggregate: AggregatePost!
+}
+
+input PostCreateInput {
+  url: String!
+  name: String!
+  slug: String!
+  tagline: String!
+  status: PostStatus
+  shortUrl: String!
+  hunter: UserCreateOneWithoutHuntedInput!
+  makers: UserCreateManyWithoutMadeInput
+  topics: TopicCreateManyWithoutPostsInput
+  comments: CommentCreateManyWithoutPostInput
+  votes: VoteCreateManyWithoutPostInput
+  visits: VisitCreateManyWithoutPostInput
+  notifications: NotificationCreateManyWithoutPostInput
+}
+
+input PostCreateManyWithoutHunterInput {
+  create: [PostCreateWithoutHunterInput!]
+  connect: [PostWhereUniqueInput!]
+}
+
+input PostCreateManyWithoutMakersInput {
+  create: [PostCreateWithoutMakersInput!]
+  connect: [PostWhereUniqueInput!]
+}
+
+input PostCreateManyWithoutTopicsInput {
+  create: [PostCreateWithoutTopicsInput!]
+  connect: [PostWhereUniqueInput!]
+}
+
+input PostCreateOneWithoutCommentsInput {
+  create: PostCreateWithoutCommentsInput
+  connect: PostWhereUniqueInput
+}
+
+input PostCreateOneWithoutNotificationsInput {
+  create: PostCreateWithoutNotificationsInput
+  connect: PostWhereUniqueInput
+}
+
+input PostCreateOneWithoutVisitsInput {
+  create: PostCreateWithoutVisitsInput
+  connect: PostWhereUniqueInput
+}
+
+input PostCreateOneWithoutVotesInput {
+  create: PostCreateWithoutVotesInput
+  connect: PostWhereUniqueInput
+}
+
+input PostCreateWithoutCommentsInput {
+  url: String!
+  name: String!
+  slug: String!
+  tagline: String!
+  status: PostStatus
+  shortUrl: String!
+  hunter: UserCreateOneWithoutHuntedInput!
+  makers: UserCreateManyWithoutMadeInput
+  topics: TopicCreateManyWithoutPostsInput
+  votes: VoteCreateManyWithoutPostInput
+  visits: VisitCreateManyWithoutPostInput
+  notifications: NotificationCreateManyWithoutPostInput
+}
+
+input PostCreateWithoutHunterInput {
+  url: String!
+  name: String!
+  slug: String!
+  tagline: String!
+  status: PostStatus
+  shortUrl: String!
+  makers: UserCreateManyWithoutMadeInput
+  topics: TopicCreateManyWithoutPostsInput
+  comments: CommentCreateManyWithoutPostInput
+  votes: VoteCreateManyWithoutPostInput
+  visits: VisitCreateManyWithoutPostInput
+  notifications: NotificationCreateManyWithoutPostInput
+}
+
+input PostCreateWithoutMakersInput {
+  url: String!
+  name: String!
+  slug: String!
+  tagline: String!
+  status: PostStatus
+  shortUrl: String!
+  hunter: UserCreateOneWithoutHuntedInput!
+  topics: TopicCreateManyWithoutPostsInput
+  comments: CommentCreateManyWithoutPostInput
+  votes: VoteCreateManyWithoutPostInput
+  visits: VisitCreateManyWithoutPostInput
+  notifications: NotificationCreateManyWithoutPostInput
+}
+
+input PostCreateWithoutNotificationsInput {
+  url: String!
+  name: String!
+  slug: String!
+  tagline: String!
+  status: PostStatus
+  shortUrl: String!
+  hunter: UserCreateOneWithoutHuntedInput!
+  makers: UserCreateManyWithoutMadeInput
+  topics: TopicCreateManyWithoutPostsInput
+  comments: CommentCreateManyWithoutPostInput
+  votes: VoteCreateManyWithoutPostInput
+  visits: VisitCreateManyWithoutPostInput
+}
+
+input PostCreateWithoutTopicsInput {
+  url: String!
+  name: String!
+  slug: String!
+  tagline: String!
+  status: PostStatus
+  shortUrl: String!
+  hunter: UserCreateOneWithoutHuntedInput!
+  makers: UserCreateManyWithoutMadeInput
+  comments: CommentCreateManyWithoutPostInput
+  votes: VoteCreateManyWithoutPostInput
+  visits: VisitCreateManyWithoutPostInput
+  notifications: NotificationCreateManyWithoutPostInput
+}
+
+input PostCreateWithoutVisitsInput {
+  url: String!
+  name: String!
+  slug: String!
+  tagline: String!
+  status: PostStatus
+  shortUrl: String!
+  hunter: UserCreateOneWithoutHuntedInput!
+  makers: UserCreateManyWithoutMadeInput
+  topics: TopicCreateManyWithoutPostsInput
+  comments: CommentCreateManyWithoutPostInput
+  votes: VoteCreateManyWithoutPostInput
+  notifications: NotificationCreateManyWithoutPostInput
+}
+
+input PostCreateWithoutVotesInput {
+  url: String!
+  name: String!
+  slug: String!
+  tagline: String!
+  status: PostStatus
+  shortUrl: String!
+  hunter: UserCreateOneWithoutHuntedInput!
+  makers: UserCreateManyWithoutMadeInput
+  topics: TopicCreateManyWithoutPostsInput
+  comments: CommentCreateManyWithoutPostInput
+  visits: VisitCreateManyWithoutPostInput
+  notifications: NotificationCreateManyWithoutPostInput
+}
+
+"""An edge in a connection."""
+type PostEdge {
+  """The item at the end of the edge."""
+  node: Post!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum PostOrderByInput {
+  id_ASC
+  id_DESC
+  url_ASC
+  url_DESC
+  name_ASC
+  name_DESC
+  slug_ASC
+  slug_DESC
+  tagline_ASC
+  tagline_DESC
+  status_ASC
+  status_DESC
+  shortUrl_ASC
+  shortUrl_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type PostPreviousValues {
+  id: ID!
+  url: String!
+  name: String!
+  slug: String!
+  tagline: String!
+  status: PostStatus
+  shortUrl: String!
+  createdAt: DateTime!
+}
+
+enum PostStatus {
+  AVAILABLE
+  COMING
+}
+
+type PostSubscriptionPayload {
+  mutation: MutationType!
+  node: Post
+  updatedFields: [String!]
+  previousValues: PostPreviousValues
+}
+
+input PostSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PostSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PostSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PostSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PostWhereInput
+}
+
+input PostUpdateInput {
+  url: String
+  name: String
+  slug: String
+  tagline: String
+  status: PostStatus
+  shortUrl: String
+  hunter: UserUpdateOneWithoutHuntedInput
+  makers: UserUpdateManyWithoutMadeInput
+  topics: TopicUpdateManyWithoutPostsInput
+  comments: CommentUpdateManyWithoutPostInput
+  votes: VoteUpdateManyWithoutPostInput
+  visits: VisitUpdateManyWithoutPostInput
+  notifications: NotificationUpdateManyWithoutPostInput
+}
+
+input PostUpdateManyWithoutHunterInput {
+  create: [PostCreateWithoutHunterInput!]
+  connect: [PostWhereUniqueInput!]
+  disconnect: [PostWhereUniqueInput!]
+  delete: [PostWhereUniqueInput!]
+  update: [PostUpdateWithWhereUniqueWithoutHunterInput!]
+  upsert: [PostUpsertWithWhereUniqueWithoutHunterInput!]
+}
+
+input PostUpdateManyWithoutMakersInput {
+  create: [PostCreateWithoutMakersInput!]
+  connect: [PostWhereUniqueInput!]
+  disconnect: [PostWhereUniqueInput!]
+  delete: [PostWhereUniqueInput!]
+  update: [PostUpdateWithWhereUniqueWithoutMakersInput!]
+  upsert: [PostUpsertWithWhereUniqueWithoutMakersInput!]
+}
+
+input PostUpdateManyWithoutTopicsInput {
+  create: [PostCreateWithoutTopicsInput!]
+  connect: [PostWhereUniqueInput!]
+  disconnect: [PostWhereUniqueInput!]
+  delete: [PostWhereUniqueInput!]
+  update: [PostUpdateWithWhereUniqueWithoutTopicsInput!]
+  upsert: [PostUpsertWithWhereUniqueWithoutTopicsInput!]
+}
+
+input PostUpdateOneWithoutCommentsInput {
+  create: PostCreateWithoutCommentsInput
+  connect: PostWhereUniqueInput
+  delete: Boolean
+  update: PostUpdateWithoutCommentsDataInput
+  upsert: PostUpsertWithoutCommentsInput
+}
+
+input PostUpdateOneWithoutNotificationsInput {
+  create: PostCreateWithoutNotificationsInput
+  connect: PostWhereUniqueInput
+  delete: Boolean
+  update: PostUpdateWithoutNotificationsDataInput
+  upsert: PostUpsertWithoutNotificationsInput
+}
+
+input PostUpdateOneWithoutVisitsInput {
+  create: PostCreateWithoutVisitsInput
+  connect: PostWhereUniqueInput
+  delete: Boolean
+  update: PostUpdateWithoutVisitsDataInput
+  upsert: PostUpsertWithoutVisitsInput
+}
+
+input PostUpdateOneWithoutVotesInput {
+  create: PostCreateWithoutVotesInput
+  connect: PostWhereUniqueInput
+  delete: Boolean
+  update: PostUpdateWithoutVotesDataInput
+  upsert: PostUpsertWithoutVotesInput
+}
+
+input PostUpdateWithoutCommentsDataInput {
+  url: String
+  name: String
+  slug: String
+  tagline: String
+  status: PostStatus
+  shortUrl: String
+  hunter: UserUpdateOneWithoutHuntedInput
+  makers: UserUpdateManyWithoutMadeInput
+  topics: TopicUpdateManyWithoutPostsInput
+  votes: VoteUpdateManyWithoutPostInput
+  visits: VisitUpdateManyWithoutPostInput
+  notifications: NotificationUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithoutHunterDataInput {
+  url: String
+  name: String
+  slug: String
+  tagline: String
+  status: PostStatus
+  shortUrl: String
+  makers: UserUpdateManyWithoutMadeInput
+  topics: TopicUpdateManyWithoutPostsInput
+  comments: CommentUpdateManyWithoutPostInput
+  votes: VoteUpdateManyWithoutPostInput
+  visits: VisitUpdateManyWithoutPostInput
+  notifications: NotificationUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithoutMakersDataInput {
+  url: String
+  name: String
+  slug: String
+  tagline: String
+  status: PostStatus
+  shortUrl: String
+  hunter: UserUpdateOneWithoutHuntedInput
+  topics: TopicUpdateManyWithoutPostsInput
+  comments: CommentUpdateManyWithoutPostInput
+  votes: VoteUpdateManyWithoutPostInput
+  visits: VisitUpdateManyWithoutPostInput
+  notifications: NotificationUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithoutNotificationsDataInput {
+  url: String
+  name: String
+  slug: String
+  tagline: String
+  status: PostStatus
+  shortUrl: String
+  hunter: UserUpdateOneWithoutHuntedInput
+  makers: UserUpdateManyWithoutMadeInput
+  topics: TopicUpdateManyWithoutPostsInput
+  comments: CommentUpdateManyWithoutPostInput
+  votes: VoteUpdateManyWithoutPostInput
+  visits: VisitUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithoutTopicsDataInput {
+  url: String
+  name: String
+  slug: String
+  tagline: String
+  status: PostStatus
+  shortUrl: String
+  hunter: UserUpdateOneWithoutHuntedInput
+  makers: UserUpdateManyWithoutMadeInput
+  comments: CommentUpdateManyWithoutPostInput
+  votes: VoteUpdateManyWithoutPostInput
+  visits: VisitUpdateManyWithoutPostInput
+  notifications: NotificationUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithoutVisitsDataInput {
+  url: String
+  name: String
+  slug: String
+  tagline: String
+  status: PostStatus
+  shortUrl: String
+  hunter: UserUpdateOneWithoutHuntedInput
+  makers: UserUpdateManyWithoutMadeInput
+  topics: TopicUpdateManyWithoutPostsInput
+  comments: CommentUpdateManyWithoutPostInput
+  votes: VoteUpdateManyWithoutPostInput
+  notifications: NotificationUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithoutVotesDataInput {
+  url: String
+  name: String
+  slug: String
+  tagline: String
+  status: PostStatus
+  shortUrl: String
+  hunter: UserUpdateOneWithoutHuntedInput
+  makers: UserUpdateManyWithoutMadeInput
+  topics: TopicUpdateManyWithoutPostsInput
+  comments: CommentUpdateManyWithoutPostInput
+  visits: VisitUpdateManyWithoutPostInput
+  notifications: NotificationUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithWhereUniqueWithoutHunterInput {
+  where: PostWhereUniqueInput!
+  data: PostUpdateWithoutHunterDataInput!
+}
+
+input PostUpdateWithWhereUniqueWithoutMakersInput {
+  where: PostWhereUniqueInput!
+  data: PostUpdateWithoutMakersDataInput!
+}
+
+input PostUpdateWithWhereUniqueWithoutTopicsInput {
+  where: PostWhereUniqueInput!
+  data: PostUpdateWithoutTopicsDataInput!
+}
+
+input PostUpsertWithoutCommentsInput {
+  update: PostUpdateWithoutCommentsDataInput!
+  create: PostCreateWithoutCommentsInput!
+}
+
+input PostUpsertWithoutNotificationsInput {
+  update: PostUpdateWithoutNotificationsDataInput!
+  create: PostCreateWithoutNotificationsInput!
+}
+
+input PostUpsertWithoutVisitsInput {
+  update: PostUpdateWithoutVisitsDataInput!
+  create: PostCreateWithoutVisitsInput!
+}
+
+input PostUpsertWithoutVotesInput {
+  update: PostUpdateWithoutVotesDataInput!
+  create: PostCreateWithoutVotesInput!
+}
+
+input PostUpsertWithWhereUniqueWithoutHunterInput {
+  where: PostWhereUniqueInput!
+  update: PostUpdateWithoutHunterDataInput!
+  create: PostCreateWithoutHunterInput!
+}
+
+input PostUpsertWithWhereUniqueWithoutMakersInput {
+  where: PostWhereUniqueInput!
+  update: PostUpdateWithoutMakersDataInput!
+  create: PostCreateWithoutMakersInput!
+}
+
+input PostUpsertWithWhereUniqueWithoutTopicsInput {
+  where: PostWhereUniqueInput!
+  update: PostUpdateWithoutTopicsDataInput!
+  create: PostCreateWithoutTopicsInput!
+}
+
+input PostWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PostWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PostWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PostWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  url: String
+
+  """All values that are not equal to given value."""
+  url_not: String
+
+  """All values that are contained in given list."""
+  url_in: [String!]
+
+  """All values that are not contained in given list."""
+  url_not_in: [String!]
+
+  """All values less than the given value."""
+  url_lt: String
+
+  """All values less than or equal the given value."""
+  url_lte: String
+
+  """All values greater than the given value."""
+  url_gt: String
+
+  """All values greater than or equal the given value."""
+  url_gte: String
+
+  """All values containing the given string."""
+  url_contains: String
+
+  """All values not containing the given string."""
+  url_not_contains: String
+
+  """All values starting with the given string."""
+  url_starts_with: String
+
+  """All values not starting with the given string."""
+  url_not_starts_with: String
+
+  """All values ending with the given string."""
+  url_ends_with: String
+
+  """All values not ending with the given string."""
+  url_not_ends_with: String
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  slug: String
+
+  """All values that are not equal to given value."""
+  slug_not: String
+
+  """All values that are contained in given list."""
+  slug_in: [String!]
+
+  """All values that are not contained in given list."""
+  slug_not_in: [String!]
+
+  """All values less than the given value."""
+  slug_lt: String
+
+  """All values less than or equal the given value."""
+  slug_lte: String
+
+  """All values greater than the given value."""
+  slug_gt: String
+
+  """All values greater than or equal the given value."""
+  slug_gte: String
+
+  """All values containing the given string."""
+  slug_contains: String
+
+  """All values not containing the given string."""
+  slug_not_contains: String
+
+  """All values starting with the given string."""
+  slug_starts_with: String
+
+  """All values not starting with the given string."""
+  slug_not_starts_with: String
+
+  """All values ending with the given string."""
+  slug_ends_with: String
+
+  """All values not ending with the given string."""
+  slug_not_ends_with: String
+  tagline: String
+
+  """All values that are not equal to given value."""
+  tagline_not: String
+
+  """All values that are contained in given list."""
+  tagline_in: [String!]
+
+  """All values that are not contained in given list."""
+  tagline_not_in: [String!]
+
+  """All values less than the given value."""
+  tagline_lt: String
+
+  """All values less than or equal the given value."""
+  tagline_lte: String
+
+  """All values greater than the given value."""
+  tagline_gt: String
+
+  """All values greater than or equal the given value."""
+  tagline_gte: String
+
+  """All values containing the given string."""
+  tagline_contains: String
+
+  """All values not containing the given string."""
+  tagline_not_contains: String
+
+  """All values starting with the given string."""
+  tagline_starts_with: String
+
+  """All values not starting with the given string."""
+  tagline_not_starts_with: String
+
+  """All values ending with the given string."""
+  tagline_ends_with: String
+
+  """All values not ending with the given string."""
+  tagline_not_ends_with: String
+  status: PostStatus
+
+  """All values that are not equal to given value."""
+  status_not: PostStatus
+
+  """All values that are contained in given list."""
+  status_in: [PostStatus!]
+
+  """All values that are not contained in given list."""
+  status_not_in: [PostStatus!]
+  shortUrl: String
+
+  """All values that are not equal to given value."""
+  shortUrl_not: String
+
+  """All values that are contained in given list."""
+  shortUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  shortUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  shortUrl_lt: String
+
+  """All values less than or equal the given value."""
+  shortUrl_lte: String
+
+  """All values greater than the given value."""
+  shortUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  shortUrl_gte: String
+
+  """All values containing the given string."""
+  shortUrl_contains: String
+
+  """All values not containing the given string."""
+  shortUrl_not_contains: String
+
+  """All values starting with the given string."""
+  shortUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  shortUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  shortUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  shortUrl_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  hunter: UserWhereInput
+  makers_every: UserWhereInput
+  makers_some: UserWhereInput
+  makers_none: UserWhereInput
+  topics_every: TopicWhereInput
+  topics_some: TopicWhereInput
+  topics_none: TopicWhereInput
+  comments_every: CommentWhereInput
+  comments_some: CommentWhereInput
+  comments_none: CommentWhereInput
+  votes_every: VoteWhereInput
+  votes_some: VoteWhereInput
+  votes_none: VoteWhereInput
+  visits_every: VisitWhereInput
+  visits_some: VisitWhereInput
+  visits_none: VisitWhereInput
+  notifications_every: NotificationWhereInput
+  notifications_some: NotificationWhereInput
+  notifications_none: NotificationWhereInput
+}
+
+input PostWhereUniqueInput {
+  id: ID
+  url: String
+  slug: String
+  shortUrl: String
+}
+
+type Query {
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote]!
+  topics(where: TopicWhereInput, orderBy: TopicOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Topic]!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
+  visits(where: VisitWhereInput, orderBy: VisitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Visit]!
+  notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification]!
+  user(where: UserWhereUniqueInput!): User
+  post(where: PostWhereUniqueInput!): Post
+  vote(where: VoteWhereUniqueInput!): Vote
+  topic(where: TopicWhereUniqueInput!): Topic
+  comment(where: CommentWhereUniqueInput!): Comment
+  visit(where: VisitWhereUniqueInput!): Visit
+  notification(where: NotificationWhereUniqueInput!): Notification
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
+  votesConnection(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VoteConnection!
+  topicsConnection(where: TopicWhereInput, orderBy: TopicOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TopicConnection!
+  commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
+  visitsConnection(where: VisitWhereInput, orderBy: VisitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VisitConnection!
+  notificationsConnection(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NotificationConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
+  vote(where: VoteSubscriptionWhereInput): VoteSubscriptionPayload
+  topic(where: TopicSubscriptionWhereInput): TopicSubscriptionPayload
+  comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
+  visit(where: VisitSubscriptionWhereInput): VisitSubscriptionPayload
+  notification(where: NotificationSubscriptionWhereInput): NotificationSubscriptionPayload
+}
+
+type Topic implements Node {
+  id: ID!
+  name: String!
+  slug: String!
+  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+}
+
+"""A connection to a list of items."""
+type TopicConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [TopicEdge]!
+  aggregate: AggregateTopic!
+}
+
+input TopicCreateInput {
+  name: String!
+  slug: String!
+  posts: PostCreateManyWithoutTopicsInput
+}
+
+input TopicCreateManyWithoutPostsInput {
+  create: [TopicCreateWithoutPostsInput!]
+  connect: [TopicWhereUniqueInput!]
+}
+
+input TopicCreateWithoutPostsInput {
+  name: String!
+  slug: String!
+}
+
+"""An edge in a connection."""
+type TopicEdge {
+  """The item at the end of the edge."""
+  node: Topic!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum TopicOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  slug_ASC
+  slug_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type TopicPreviousValues {
+  id: ID!
+  name: String!
+  slug: String!
+}
+
+type TopicSubscriptionPayload {
+  mutation: MutationType!
+  node: Topic
+  updatedFields: [String!]
+  previousValues: TopicPreviousValues
+}
+
+input TopicSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TopicSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TopicSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TopicSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: TopicWhereInput
+}
+
+input TopicUpdateInput {
+  name: String
+  slug: String
+  posts: PostUpdateManyWithoutTopicsInput
+}
+
+input TopicUpdateManyWithoutPostsInput {
+  create: [TopicCreateWithoutPostsInput!]
+  connect: [TopicWhereUniqueInput!]
+  disconnect: [TopicWhereUniqueInput!]
+  delete: [TopicWhereUniqueInput!]
+  update: [TopicUpdateWithWhereUniqueWithoutPostsInput!]
+  upsert: [TopicUpsertWithWhereUniqueWithoutPostsInput!]
+}
+
+input TopicUpdateWithoutPostsDataInput {
+  name: String
+  slug: String
+}
+
+input TopicUpdateWithWhereUniqueWithoutPostsInput {
+  where: TopicWhereUniqueInput!
+  data: TopicUpdateWithoutPostsDataInput!
+}
+
+input TopicUpsertWithWhereUniqueWithoutPostsInput {
+  where: TopicWhereUniqueInput!
+  update: TopicUpdateWithoutPostsDataInput!
+  create: TopicCreateWithoutPostsInput!
+}
+
+input TopicWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TopicWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TopicWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TopicWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  slug: String
+
+  """All values that are not equal to given value."""
+  slug_not: String
+
+  """All values that are contained in given list."""
+  slug_in: [String!]
+
+  """All values that are not contained in given list."""
+  slug_not_in: [String!]
+
+  """All values less than the given value."""
+  slug_lt: String
+
+  """All values less than or equal the given value."""
+  slug_lte: String
+
+  """All values greater than the given value."""
+  slug_gt: String
+
+  """All values greater than or equal the given value."""
+  slug_gte: String
+
+  """All values containing the given string."""
+  slug_contains: String
+
+  """All values not containing the given string."""
+  slug_not_contains: String
+
+  """All values starting with the given string."""
+  slug_starts_with: String
+
+  """All values not starting with the given string."""
+  slug_not_starts_with: String
+
+  """All values ending with the given string."""
+  slug_ends_with: String
+
+  """All values not ending with the given string."""
+  slug_not_ends_with: String
+  posts_every: PostWhereInput
+  posts_some: PostWhereInput
+  posts_none: PostWhereInput
+}
+
+input TopicWhereUniqueInput {
+  id: ID
+  slug: String
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
+  bio: String
+  email: String!
+  password: String!
+  hunted(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  made(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  sentNotifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification!]
+  notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type UserConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  name: String!
+  bio: String
+  email: String!
+  password: String!
+  hunted: PostCreateManyWithoutHunterInput
+  made: PostCreateManyWithoutMakersInput
+  votes: VoteCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+  sentNotifications: NotificationCreateManyWithoutFromInput
+  notifications: NotificationCreateManyWithoutToInput
+}
+
+input UserCreateManyWithoutMadeInput {
+  create: [UserCreateWithoutMadeInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateOneWithoutCommentsInput {
+  create: UserCreateWithoutCommentsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutHuntedInput {
+  create: UserCreateWithoutHuntedInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutNotificationsInput {
+  create: UserCreateWithoutNotificationsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutSentNotificationsInput {
+  create: UserCreateWithoutSentNotificationsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutVotesInput {
+  create: UserCreateWithoutVotesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutCommentsInput {
+  name: String!
+  bio: String
+  email: String!
+  password: String!
+  hunted: PostCreateManyWithoutHunterInput
+  made: PostCreateManyWithoutMakersInput
+  votes: VoteCreateManyWithoutUserInput
+  sentNotifications: NotificationCreateManyWithoutFromInput
+  notifications: NotificationCreateManyWithoutToInput
+}
+
+input UserCreateWithoutHuntedInput {
+  name: String!
+  bio: String
+  email: String!
+  password: String!
+  made: PostCreateManyWithoutMakersInput
+  votes: VoteCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+  sentNotifications: NotificationCreateManyWithoutFromInput
+  notifications: NotificationCreateManyWithoutToInput
+}
+
+input UserCreateWithoutMadeInput {
+  name: String!
+  bio: String
+  email: String!
+  password: String!
+  hunted: PostCreateManyWithoutHunterInput
+  votes: VoteCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+  sentNotifications: NotificationCreateManyWithoutFromInput
+  notifications: NotificationCreateManyWithoutToInput
+}
+
+input UserCreateWithoutNotificationsInput {
+  name: String!
+  bio: String
+  email: String!
+  password: String!
+  hunted: PostCreateManyWithoutHunterInput
+  made: PostCreateManyWithoutMakersInput
+  votes: VoteCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+  sentNotifications: NotificationCreateManyWithoutFromInput
+}
+
+input UserCreateWithoutSentNotificationsInput {
+  name: String!
+  bio: String
+  email: String!
+  password: String!
+  hunted: PostCreateManyWithoutHunterInput
+  made: PostCreateManyWithoutMakersInput
+  votes: VoteCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+  notifications: NotificationCreateManyWithoutToInput
+}
+
+input UserCreateWithoutVotesInput {
+  name: String!
+  bio: String
+  email: String!
+  password: String!
+  hunted: PostCreateManyWithoutHunterInput
+  made: PostCreateManyWithoutMakersInput
+  comments: CommentCreateManyWithoutUserInput
+  sentNotifications: NotificationCreateManyWithoutFromInput
+  notifications: NotificationCreateManyWithoutToInput
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge."""
+  node: User!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  bio_ASC
+  bio_DESC
+  email_ASC
+  email_DESC
+  password_ASC
+  password_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  name: String!
+  bio: String
+  email: String!
+  password: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+}
+
+input UserUpdateInput {
+  name: String
+  bio: String
+  email: String
+  password: String
+  hunted: PostUpdateManyWithoutHunterInput
+  made: PostUpdateManyWithoutMakersInput
+  votes: VoteUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+  sentNotifications: NotificationUpdateManyWithoutFromInput
+  notifications: NotificationUpdateManyWithoutToInput
+}
+
+input UserUpdateManyWithoutMadeInput {
+  create: [UserCreateWithoutMadeInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutMadeInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutMadeInput!]
+}
+
+input UserUpdateOneWithoutCommentsInput {
+  create: UserCreateWithoutCommentsInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateWithoutCommentsDataInput
+  upsert: UserUpsertWithoutCommentsInput
+}
+
+input UserUpdateOneWithoutHuntedInput {
+  create: UserCreateWithoutHuntedInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateWithoutHuntedDataInput
+  upsert: UserUpsertWithoutHuntedInput
+}
+
+input UserUpdateOneWithoutNotificationsInput {
+  create: UserCreateWithoutNotificationsInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateWithoutNotificationsDataInput
+  upsert: UserUpsertWithoutNotificationsInput
+}
+
+input UserUpdateOneWithoutSentNotificationsInput {
+  create: UserCreateWithoutSentNotificationsInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateWithoutSentNotificationsDataInput
+  upsert: UserUpsertWithoutSentNotificationsInput
+}
+
+input UserUpdateOneWithoutVotesInput {
+  create: UserCreateWithoutVotesInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateWithoutVotesDataInput
+  upsert: UserUpsertWithoutVotesInput
+}
+
+input UserUpdateWithoutCommentsDataInput {
+  name: String
+  bio: String
+  email: String
+  password: String
+  hunted: PostUpdateManyWithoutHunterInput
+  made: PostUpdateManyWithoutMakersInput
+  votes: VoteUpdateManyWithoutUserInput
+  sentNotifications: NotificationUpdateManyWithoutFromInput
+  notifications: NotificationUpdateManyWithoutToInput
+}
+
+input UserUpdateWithoutHuntedDataInput {
+  name: String
+  bio: String
+  email: String
+  password: String
+  made: PostUpdateManyWithoutMakersInput
+  votes: VoteUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+  sentNotifications: NotificationUpdateManyWithoutFromInput
+  notifications: NotificationUpdateManyWithoutToInput
+}
+
+input UserUpdateWithoutMadeDataInput {
+  name: String
+  bio: String
+  email: String
+  password: String
+  hunted: PostUpdateManyWithoutHunterInput
+  votes: VoteUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+  sentNotifications: NotificationUpdateManyWithoutFromInput
+  notifications: NotificationUpdateManyWithoutToInput
+}
+
+input UserUpdateWithoutNotificationsDataInput {
+  name: String
+  bio: String
+  email: String
+  password: String
+  hunted: PostUpdateManyWithoutHunterInput
+  made: PostUpdateManyWithoutMakersInput
+  votes: VoteUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+  sentNotifications: NotificationUpdateManyWithoutFromInput
+}
+
+input UserUpdateWithoutSentNotificationsDataInput {
+  name: String
+  bio: String
+  email: String
+  password: String
+  hunted: PostUpdateManyWithoutHunterInput
+  made: PostUpdateManyWithoutMakersInput
+  votes: VoteUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+  notifications: NotificationUpdateManyWithoutToInput
+}
+
+input UserUpdateWithoutVotesDataInput {
+  name: String
+  bio: String
+  email: String
+  password: String
+  hunted: PostUpdateManyWithoutHunterInput
+  made: PostUpdateManyWithoutMakersInput
+  comments: CommentUpdateManyWithoutUserInput
+  sentNotifications: NotificationUpdateManyWithoutFromInput
+  notifications: NotificationUpdateManyWithoutToInput
+}
+
+input UserUpdateWithWhereUniqueWithoutMadeInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutMadeDataInput!
+}
+
+input UserUpsertWithoutCommentsInput {
+  update: UserUpdateWithoutCommentsDataInput!
+  create: UserCreateWithoutCommentsInput!
+}
+
+input UserUpsertWithoutHuntedInput {
+  update: UserUpdateWithoutHuntedDataInput!
+  create: UserCreateWithoutHuntedInput!
+}
+
+input UserUpsertWithoutNotificationsInput {
+  update: UserUpdateWithoutNotificationsDataInput!
+  create: UserCreateWithoutNotificationsInput!
+}
+
+input UserUpsertWithoutSentNotificationsInput {
+  update: UserUpdateWithoutSentNotificationsDataInput!
+  create: UserCreateWithoutSentNotificationsInput!
+}
+
+input UserUpsertWithoutVotesInput {
+  update: UserUpdateWithoutVotesDataInput!
+  create: UserCreateWithoutVotesInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutMadeInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutMadeDataInput!
+  create: UserCreateWithoutMadeInput!
+}
+
+input UserWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  bio: String
+
+  """All values that are not equal to given value."""
+  bio_not: String
+
+  """All values that are contained in given list."""
+  bio_in: [String!]
+
+  """All values that are not contained in given list."""
+  bio_not_in: [String!]
+
+  """All values less than the given value."""
+  bio_lt: String
+
+  """All values less than or equal the given value."""
+  bio_lte: String
+
+  """All values greater than the given value."""
+  bio_gt: String
+
+  """All values greater than or equal the given value."""
+  bio_gte: String
+
+  """All values containing the given string."""
+  bio_contains: String
+
+  """All values not containing the given string."""
+  bio_not_contains: String
+
+  """All values starting with the given string."""
+  bio_starts_with: String
+
+  """All values not starting with the given string."""
+  bio_not_starts_with: String
+
+  """All values ending with the given string."""
+  bio_ends_with: String
+
+  """All values not ending with the given string."""
+  bio_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  hunted_every: PostWhereInput
+  hunted_some: PostWhereInput
+  hunted_none: PostWhereInput
+  made_every: PostWhereInput
+  made_some: PostWhereInput
+  made_none: PostWhereInput
+  votes_every: VoteWhereInput
+  votes_some: VoteWhereInput
+  votes_none: VoteWhereInput
+  comments_every: CommentWhereInput
+  comments_some: CommentWhereInput
+  comments_none: CommentWhereInput
+  sentNotifications_every: NotificationWhereInput
+  sentNotifications_some: NotificationWhereInput
+  sentNotifications_none: NotificationWhereInput
+  notifications_every: NotificationWhereInput
+  notifications_some: NotificationWhereInput
+  notifications_none: NotificationWhereInput
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  email: String
+}
+
+type Visit implements Node {
+  id: ID!
+  post(where: PostWhereInput): Post!
+  createdAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type VisitConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [VisitEdge]!
+  aggregate: AggregateVisit!
+}
+
+input VisitCreateInput {
+  post: PostCreateOneWithoutVisitsInput!
+}
+
+input VisitCreateManyWithoutPostInput {
+  connect: [VisitWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type VisitEdge {
+  """The item at the end of the edge."""
+  node: Visit!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum VisitOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type VisitPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+}
+
+type VisitSubscriptionPayload {
+  mutation: MutationType!
+  node: Visit
+  updatedFields: [String!]
+  previousValues: VisitPreviousValues
+}
+
+input VisitSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VisitSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [VisitSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [VisitSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: VisitWhereInput
+}
+
+input VisitUpdateInput {
+  post: PostUpdateOneWithoutVisitsInput
+}
+
+input VisitUpdateManyWithoutPostInput {
+  connect: [VisitWhereUniqueInput!]
+  disconnect: [VisitWhereUniqueInput!]
+  delete: [VisitWhereUniqueInput!]
+}
+
+input VisitWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VisitWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [VisitWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [VisitWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  post: PostWhereInput
+}
+
+input VisitWhereUniqueInput {
+  id: ID
+}
+
+type Vote implements Node {
+  id: ID!
+  user(where: UserWhereInput): User!
+  post(where: PostWhereInput): Post!
+  createdAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type VoteConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [VoteEdge]!
+  aggregate: AggregateVote!
+}
+
+input VoteCreateInput {
+  user: UserCreateOneWithoutVotesInput!
+  post: PostCreateOneWithoutVotesInput!
+}
+
+input VoteCreateManyWithoutPostInput {
+  create: [VoteCreateWithoutPostInput!]
+  connect: [VoteWhereUniqueInput!]
+}
+
+input VoteCreateManyWithoutUserInput {
+  create: [VoteCreateWithoutUserInput!]
+  connect: [VoteWhereUniqueInput!]
+}
+
+input VoteCreateWithoutPostInput {
+  user: UserCreateOneWithoutVotesInput!
+}
+
+input VoteCreateWithoutUserInput {
+  post: PostCreateOneWithoutVotesInput!
+}
+
+"""An edge in a connection."""
+type VoteEdge {
+  """The item at the end of the edge."""
+  node: Vote!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum VoteOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type VotePreviousValues {
+  id: ID!
+  createdAt: DateTime!
+}
+
+type VoteSubscriptionPayload {
+  mutation: MutationType!
+  node: Vote
+  updatedFields: [String!]
+  previousValues: VotePreviousValues
+}
+
+input VoteSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VoteSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [VoteSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [VoteSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: VoteWhereInput
+}
+
+input VoteUpdateInput {
+  user: UserUpdateOneWithoutVotesInput
+  post: PostUpdateOneWithoutVotesInput
+}
+
+input VoteUpdateManyWithoutPostInput {
+  create: [VoteCreateWithoutPostInput!]
+  connect: [VoteWhereUniqueInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  delete: [VoteWhereUniqueInput!]
+  update: [VoteUpdateWithWhereUniqueWithoutPostInput!]
+  upsert: [VoteUpsertWithWhereUniqueWithoutPostInput!]
+}
+
+input VoteUpdateManyWithoutUserInput {
+  create: [VoteCreateWithoutUserInput!]
+  connect: [VoteWhereUniqueInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  delete: [VoteWhereUniqueInput!]
+  update: [VoteUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [VoteUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input VoteUpdateWithoutPostDataInput {
+  user: UserUpdateOneWithoutVotesInput
+}
+
+input VoteUpdateWithoutUserDataInput {
+  post: PostUpdateOneWithoutVotesInput
+}
+
+input VoteUpdateWithWhereUniqueWithoutPostInput {
+  where: VoteWhereUniqueInput!
+  data: VoteUpdateWithoutPostDataInput!
+}
+
+input VoteUpdateWithWhereUniqueWithoutUserInput {
+  where: VoteWhereUniqueInput!
+  data: VoteUpdateWithoutUserDataInput!
+}
+
+input VoteUpsertWithWhereUniqueWithoutPostInput {
+  where: VoteWhereUniqueInput!
+  update: VoteUpdateWithoutPostDataInput!
+  create: VoteCreateWithoutPostInput!
+}
+
+input VoteUpsertWithWhereUniqueWithoutUserInput {
+  where: VoteWhereUniqueInput!
+  update: VoteUpdateWithoutUserDataInput!
+  create: VoteCreateWithoutUserInput!
+}
+
+input VoteWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VoteWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [VoteWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [VoteWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  user: UserWhereInput
+  post: PostWhereInput
+}
+
+input VoteWhereUniqueInput {
+  id: ID
+}

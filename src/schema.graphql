@@ -1,0 +1,69 @@
+# import * from "./generated/prisma.graphql"
+
+type Query {
+  me: User
+  postsToday: [Post!]!
+  posts(topics: [String!]!): [Post!]!
+}
+
+type Mutation {
+  register(name: String!, email: String!, password: String!): AuthPayload!
+  login(email: String!, password: String!): AuthPayload!
+  createPost(
+    url: String!
+    name: String!
+    tagline: String!
+    status: PostStatus
+    topics: [ID!]!
+  ): Post!
+  upvote(id: ID!): Vote!
+  visit(shortUrl: String!): VisitPayload!
+  createComment(postId: ID!, message: String!): Comment!
+  editComment(id: ID!, message: String!): Comment!
+  deleteComment(id: ID!): Comment
+}
+
+type Subscription {
+  newPosts: PostSubscriptionPayload
+  newComments(postId: ID!): CommentSubscriptionPayload
+}
+
+type AuthPayload {
+  token: String!
+}
+
+type User {
+  id: ID!
+  name: String!
+  bio: String
+  email: String!
+  hunted: [Post!]!
+  made: [Post!]!
+  votes: [Vote!]!
+  comments: [Comment!]!
+}
+
+type Post {
+  id: ID!
+  name: String!
+  slug: String!
+  tagline: String!
+  status: PostStatus!
+  shortUrl: String!
+  hunter: User!
+  makers: [User!]!
+  topics: [Topic!]!
+  comments: [Comment!]!
+  votes: [Vote!]!
+  createdAt: DateTime!
+}
+
+type Vote {
+  id: ID!
+  user: User!
+  post: Post!
+}
+
+type VisitPayload {
+  url: String!
+}

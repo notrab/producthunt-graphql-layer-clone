@@ -1,0 +1,21 @@
+endpoint: ${env:PRISMA_ENDPOINT}
+
+datamodel: datamodel.graphql
+
+seed:
+  import: seed.graphql
+
+hooks:
+  post-deploy:
+    - graphql get-schema --project database
+    - graphql codegen
+
+secret: ${env:PRISMA_SECRET}
+
+# subscriptions:
+#   newPostComment:
+#     query: subscriptions/newPostComment.graphq;
+
+# subscriptions:
+#   newPostVote:
+#     query: subscriptions/newPostVote.graphq;

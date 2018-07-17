@@ -1,0 +1,43 @@
+mutation {
+  tech: createTopic(data: {
+    name: "Tech",
+    slug: "tech"
+  }) {
+    id
+  }
+  
+  games: createTopic(data: {
+    name: "Games",
+    slug: "games"
+  }) {
+    id
+  }
+  
+  books: createTopic(data: {
+    name: "Books",
+    slug: "books"
+  }) {
+    id
+  }
+  
+  apis: createTopic(data: {
+    name: "APIs",
+    slug: "apis"
+  }) {
+    id
+  }
+  
+  devTools: createTopic(data: {
+    name: "Developer Tools",
+    slug: "developer-tools"
+  }) {
+    id
+  }
+  
+  designTools: createTopic(data: {
+    name: "Design Tools",
+    slug: "design-tools"
+  }) {
+    id
+  }
+}
